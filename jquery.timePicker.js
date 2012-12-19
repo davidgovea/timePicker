@@ -208,11 +208,12 @@
 
   // Plugin defaults.
   $.fn.timePicker.defaults = {
-    step:30,
+    step:15,
     startTime: new Date(0, 0, 0, 0, 0, 0),
     endTime: new Date(0, 0, 0, 23, 30, 0),
     separator: ':',
-    show24Hours: true
+    show24Hours: false,
+    leadingZero: false
   };
 
   // Private functions.
@@ -234,7 +235,7 @@
     var h = time.getHours();
     var hours = settings.show24Hours ? h : (((h + 11) % 12) + 1);
     var minutes = time.getMinutes();
-    return formatNumber(hours) + settings.separator + formatNumber(minutes) + (settings.show24Hours ? '' : ((h < 12) ? ' AM' : ' PM'));
+    return (settings.leadingZero ?  formatNumber(hours) : hours) + settings.separator + formatNumber(minutes) + (settings.show24Hours ? '' : ((h < 12) ? ' AM' : ' PM'));
   }
 
   function formatNumber(value) {
